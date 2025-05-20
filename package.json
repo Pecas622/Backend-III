@@ -12,8 +12,21 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@faker-js/faker": "^9.8.0",
+    "artillery-plugin-metrics-by-endpoint": "^1.17.0",
+    "bcrypt": "^6.0.0",
+    "calculator-70435": "^2.2.2",
+    "commander": "^14.0.0",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.5.0",
     "express": "^5.1.0",
-    "mongoose": "^8.15.0"
+    "express-compression": "^1.0.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.15.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth2": "^0.2.0",
+    "passport-jwt": "^4.0.1",
+    "passport-local": "^1.0.0",
+    "winston": "^3.17.0"
   }
 }
