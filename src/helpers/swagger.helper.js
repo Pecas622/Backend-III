@@ -1,16 +1,22 @@
-import swaggerJsDoc from "swagger-jsdoc";
-import __dirname from "../../utils.js";
+import swaggerJsdoc from "swagger-jsdoc";
 
-const opts = {
+const options = {
     definition: {
-        openapi: "3.1.0",
+        openapi: "3.0.0",
         info: {
-            title: "CODER COMMERCE 70435",
-            description: "Documentación de la API de CoderCommerce70435",
+            title: "API Backend-III",
+            version: "1.0.0",
+            description: "Documentación generada con swagger-jsdoc",
         },
+        servers: [
+            {
+                url: "http://localhost:8080",
+            },
+        ],
     },
-    apis: [__dirname + "/src/docs/*.yaml"],
+    apis: ["./src/routers/api/*.js"], // Apunta a donde están tus rutas documentadas
 };
-const swaggerSpecs = swaggerJsDoc(opts);
 
-export default swaggerSpecs;
+const swaggerSpec = swaggerJsdoc(options);
+
+export default swaggerSpec;

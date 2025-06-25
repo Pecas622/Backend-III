@@ -3,18 +3,22 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "scripts": {
-    "start": "node ./index.js",
-    "dev": "node --watch ./index.js",
-    "test": "mocha ./test",
-    "build": "docker build -t back-iii-final .",
-    "retag": "docker tag back-iii-final santiagozorrilla/back-iii-final:1.0.1",
-    "push": "docker push santiagozorrilla/back-iii-final:1.0.1"
-  },
-  "keywords": [],
+  "description": "",
   "author": "",
   "license": "ISC",
-  "description": "",
+  "keywords": [],
+  "scripts": {
+    "start": "node ./index.js --mode=prod",
+    "dev": "node --watch ./index.js",
+    "test": "mocha ./test",
+    "mocha": "mocha ./test/mocha",
+    "chai": "mocha ./test/chai",
+    "supertest": "mocha ./test/supertest",
+    "build": "docker build -t backend-iii .",
+    "retag": "docker tag backend-iii pecas622/backend-iii:1.0.1",
+    "push": "docker push pecas622/backend-iii:1.0.1",
+    "run-image": "docker run -p 8080:8080 backend-iii"
+  },
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cookie-parser": "^1.4.7",

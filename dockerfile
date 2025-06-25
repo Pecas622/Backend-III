@@ -1,5 +1,5 @@
 FROM node
-WORKDIR /practica-final
+WORKDIR /backend-III
 COPY package.json ./
 RUN npm install
 COPY . .

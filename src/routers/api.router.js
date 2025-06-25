@@ -1,3 +1,10 @@
+/**
+ * @swagger
+ * tags:
+ *   - name: API
+ *     description: Endpoints principales agrupados
+ */
+
 import { Router } from "express";
 import productsRouter from "./api/products.api.js";
 import cartsRouter from "./api/carts.api.js";
