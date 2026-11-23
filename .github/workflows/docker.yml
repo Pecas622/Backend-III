@@ -20,7 +20,7 @@ jobs:
   docker:
     needs: test
     runs-on: ubuntu-latest
-    if: ${{ vars.DOCKERHUB_USERNAME != '' || secrets.DOCKERHUB_TOKEN != '' }}
+    if: ${{ vars.DOCKERHUB_USERNAME != '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: docker/login-action@v3
