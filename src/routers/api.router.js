@@ -10,6 +10,8 @@ import productsRouter from "./api/products.api.js";
 import cartsRouter from "./api/carts.api.js";
 import usersRouter from "./api/users.api.js";
 import authRouter from "./api/auth.api.js";
+import petsRouter from "./api/pets.router.js";
+import adoptionRouter from "./api/adoption.router.js";
 
 const router = Router();
 
@@ -17,5 +19,7 @@ router.use("/products", productsRouter);
 router.use("/carts", cartsRouter);
 router.use("/users", usersRouter);
 router.use("/auth", authRouter);
+router.use("/pets", petsRouter);
+router.use("/adoptions", adoptionRouter);
 
 export default router;

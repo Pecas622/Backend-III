@@ -10,11 +10,11 @@ const options = {
         },
         servers: [
             {
-                url: "http://localhost:8080",
+                url: process.env.SWAGGER_SERVER_URL || "http://localhost:8080",
             },
         ],
     },
-    apis: ["./src/routers/api/*.js"], // Apunta a donde están tus rutas documentadas
+    apis: ["./src/routers/api/*.js", "./src/docs/*.yaml"],
 };
 
 const swaggerSpec = swaggerJsdoc(options);

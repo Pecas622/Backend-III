@@ -1,0 +1,173 @@
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 665f1c2b9a1e4b0012345678
+        name:
+          type: string
+          example: Santiago
+        email:
+          type: string
+          example: user@example.com
+        avatar:
+          type: string
+          example: https://cdn-icons-png.flaticon.com/512/147/147142.png
+        role:
+          type: string
+          enum: [USER, ADMIN, PREM]
+          example: USER
+        pets:
+          type: array
+          items:
+            type: string
+          example: ["665f1c2b9a1e4b0012340001"]
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    TokenPayload:
+      type: object
+      description: Datos del usuario leídos del token JWT
+      properties:
+        user_id:
+          type: string
+          example: 665f1c2b9a1e4b0012345678
+        email:
+          type: string
+          example: user@example.com
+        role:
+          type: string
+          example: USER
+    UpdateUser:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Santiago Zorrilla
+        avatar:
+          type: string
+          example: https://example.com/avatar.png
+        date:
+          type: string
+          format: date
+          example: 1995-04-12
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Invalid credentials
+        method:
+          type: string
+          example: GET
+        url:
+          type: string
+          example: /api/users
+        timestamp:
+          type: string
+          format: date-time
+  responses:
+    Unauthorized:
+      description: No hay token o el token es inválido / expiró
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    BadRequest:
+      description: Datos inválidos
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
+tags:
+  - name: Users
+    description: Gestión del perfil del usuario autenticado. Requiere el token JWT obtenido en /api/auth/login (header Authorization Bearer o cookie "token").
+
+paths:
+  /api/users:
+    get:
+      summary: Obtener el perfil del usuario logueado
+      tags: [Users]
+      security:
+        - bearerAuth: []
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Perfil del usuario
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Success
+                  response:
+                    $ref: "#/components/schemas/TokenPayload"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    put:
+      summary: Actualizar el perfil del usuario logueado
+      tags: [Users]
+      security:
+        - bearerAuth: []
+        - cookieAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateUser"
+      responses:
+        "200":
+          description: Usuario actualizado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Success
+                  response:
+                    $ref: "#/components/schemas/User"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    delete:
+      summary: Eliminar la cuenta del usuario logueado
+      tags: [Users]
+      security:
+        - bearerAuth: []
+        - cookieAuth: []
+      responses:
+        "200":
+          description: Usuario eliminado
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Success
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"

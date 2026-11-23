@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, Types, model } from "mongoose";
 
 const collection = "santiagoUsers"; // Tu nombre personalizado
 const schema = new Schema(
@@ -17,6 +17,7 @@ const schema = new Schema(
             enum: ["USER", "ADMIN", "PREM"],
             index: true,
         },
+        pets: [{ type: Types.ObjectId, ref: "santiagoPets" }],
     },
     { timestamps: true }
 );

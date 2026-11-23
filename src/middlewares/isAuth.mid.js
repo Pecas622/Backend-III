@@ -3,7 +3,9 @@ import { verifyToken } from "../helpers/token.helper.js";
 
 function isAuth(req, res, next) {
     try {
-        const token = req?.cookies?.token;
+        const header = req.headers?.authorization;
+        const bearer = header?.startsWith("Bearer ") ? header.slice(7) : null;
+        const token = req?.cookies?.token || bearer;
         if (!token) {
             const error = new Error(errors.invalid.message);
             error.statusCode = errors.invalid.statusCode;

@@ -1,0 +1,179 @@
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 665f1c2b9a1e4b0012340001
+        name:
+          type: string
+          example: Firulais
+        specie:
+          type: string
+          example: dog
+        birthDate:
+          type: string
+          format: date
+          example: 2022-05-10
+        adopted:
+          type: boolean
+          example: false
+        owner:
+          type: string
+          nullable: true
+    NewPet:
+      type: object
+      required: [name, specie]
+      properties:
+        name:
+          type: string
+          example: Firulais
+        specie:
+          type: string
+          example: dog
+        birthDate:
+          type: string
+          format: date
+          example: 2022-05-10
+    Adoption:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 665f1c2b9a1e4b0012349999
+        owner:
+          type: string
+          example: 665f1c2b9a1e4b0012345678
+        pet:
+          type: string
+          example: 665f1c2b9a1e4b0012340001
+        createdAt:
+          type: string
+          format: date-time
+
+tags:
+  - name: Pets
+    description: Mascotas disponibles para adopción
+  - name: Adoptions
+    description: Adopciones de mascotas por usuarios
+
+paths:
+  /api/pets:
+    get:
+      summary: Listar mascotas
+      tags: [Pets]
+      responses:
+        "200":
+          description: Lista de mascotas
+    post:
+      summary: Crear una mascota
+      tags: [Pets]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewPet"
+      responses:
+        "201":
+          description: Mascota creada
+        "400":
+          description: Faltan name o specie
+  /api/pets/{pid}:
+    parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Obtener una mascota por id
+      tags: [Pets]
+      responses:
+        "200":
+          description: Mascota encontrada
+        "400":
+          description: Id inválido
+        "404":
+          description: Mascota no encontrada
+    delete:
+      summary: Eliminar una mascota
+      tags: [Pets]
+      responses:
+        "200":
+          description: Mascota eliminada
+        "404":
+          description: Mascota no encontrada
+
+  /api/adoptions:
+    get:
+      summary: Listar adopciones
+      tags: [Adoptions]
+      responses:
+        "200":
+          description: Lista de adopciones
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  payload:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Adoption"
+  /api/adoptions/{aid}:
+    get:
+      summary: Obtener una adopción por id
+      tags: [Adoptions]
+      parameters:
+        - in: path
+          name: aid
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Adopción encontrada
+        "400":
+          description: Id inválido
+        "404":
+          description: Adopción no encontrada
+  /api/adoptions/{uid}/{pid}:
+    post:
+      summary: Un usuario adopta una mascota
+      tags: [Adoptions]
+      parameters:
+        - in: path
+          name: uid
+          required: true
+          schema:
+            type: string
+        - in: path
+          name: pid
+          required: true
+          schema:
+            type: string
+      responses:
+        "201":
+          description: Mascota adoptada
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: Pet adopted
+                  payload:
+                    $ref: "#/components/schemas/Adoption"
+        "400":
+          description: Ids inválidos o mascota ya adoptada
+        "404":
+          description: Usuario o mascota no encontrados

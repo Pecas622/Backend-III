@@ -20,8 +20,9 @@ passport.use(
                     error.statusCode = errors.invalid.statusCode;
                     throw error;
                 }
-                req.body.password = createHash(password);
-                const user = await usersManager.createOne(req.body);
+                const { role, pets, ...data } = req.body;
+                data.password = createHash(password);
+                const user = await usersManager.createOne(data);
                 done(null, user);
             } catch (error) {
                 done(error);

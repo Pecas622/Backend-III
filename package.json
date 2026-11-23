@@ -3,21 +3,17 @@
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
-  "description": "",
-  "author": "",
+  "description": "API REST Backend III: e-commerce + adopción de mascotas, documentada con Swagger, testeada con Mocha/Chai/Supertest y dockerizada.",
+  "author": "Santiago Zorrilla",
   "license": "ISC",
   "keywords": [],
   "scripts": {
-    "start": "node ./index.js --mode=prod",
-    "dev": "node --watch ./index.js",
-    "test": "mocha ./test",
-    "mocha": "mocha ./test/mocha",
-    "chai": "mocha ./test/chai",
-    "supertest": "mocha ./test/supertest",
-    "build": "docker build -t backend-iii .",
-    "retag": "docker tag backend-iii pecas622/backend-iii:1.0.1",
-    "push": "docker push pecas622/backend-iii:1.0.1",
-    "run-image": "docker run -p 8080:8080 backend-iii"
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "mocha",
+    "docker:build": "docker build -t pecas622/backend-iii:1.0.0 -t pecas622/backend-iii:latest .",
+    "docker:push": "docker push pecas622/backend-iii:1.0.0 && docker push pecas622/backend-iii:latest",
+    "docker:run": "docker run --rm -p 8080:8080 --env-file .env pecas622/backend-iii:latest"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -35,6 +31,7 @@
   "devDependencies": {
     "chai": "^5.2.0",
     "mocha": "^11.6.0",
+    "mongodb-memory-server": "^11.4.0",
     "supertest": "^7.1.1"
   }
 }

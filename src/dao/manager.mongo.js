@@ -1,6 +1,8 @@
 import User from "./models/users.model.js";
 import Product from "./models/products.model.js";
 import Cart from "./models/carts.model.js";
+import Pet from "./models/pets.model.js";
+import Adoption from "./models/adoptions.model.js";
 
 class Manager {
     constructor(model) {
@@ -78,5 +80,7 @@ export default Manager;
 const usersManager = new Manager(User);
 const productsManager = new Manager(Product);
 const cartsManager = new Manager(Cart);
+const petsManager = new Manager(Pet);
+const adoptionsManager = new Manager(Adoption);
 
-export { usersManager, productsManager, cartsManager };
+export { usersManager, productsManager, cartsManager, petsManager, adoptionsManager };
