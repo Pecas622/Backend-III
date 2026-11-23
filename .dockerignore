@@ -12,3 +12,4 @@ logs
 Dockerfile
 .dockerignore
 README.md
+.github
